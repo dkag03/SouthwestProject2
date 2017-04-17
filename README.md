@@ -5,4 +5,4 @@ Steps to run the test:
 This project was created using IntelliJ IDE. After checking out the repository, Maven should install junit and other dependencies
 
 1. Place chromedriver.exe into you C:\ drive
-2. Right-click in the TestSouthwestBooking#testFlightBooking method and click run.
+2. Right-click in the src/test/java/TestSouthwestBooking.java - testFlightBooking() method and click run.
