@@ -35,7 +35,6 @@ public class TestSouthwestBooking extends TestBase {
         homePage.sleepSomeSeconds(1);
         homePage.enterArriveLocation("LAX");
         Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DATE, 2);
         homePage.enterDepartDateAndReturnOneWeekLater(cal);
         homePage.selectNumberOfAdults(1);
         homePage.clickSearch();

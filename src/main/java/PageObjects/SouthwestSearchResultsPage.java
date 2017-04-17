@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by David on 4/16/2017.
@@ -51,7 +53,9 @@ public class SouthwestSearchResultsPage extends WebPage {
             }
             else {
                 String text = driver.findElement(By.cssSelector(flightRowSelector + " > td:nth-child(" + i + ") > div > span")).getText();
-                if (!text.toLowerCase().contains("unavailable")) {//only a span element indicates the price is unavailable, move on to the next column for the flight row
+                Pattern badFlightsPattern = Pattern.compile("(?i)(unavailable|sold out)");//filtering out flights that show sold out/unavailable in the price column
+                Matcher badFlightsMatcher = badFlightsPattern.matcher(text);
+                if (!badFlightsMatcher.find()) {//only a span element indicates the price is unavailable, move on to the next column for the flight row
                     return i;
                 }
             }
@@ -118,7 +122,7 @@ public class SouthwestSearchResultsPage extends WebPage {
         int priceColumnToUse  = validatePriceAvailability(returnTableSelector + ":nth-child(" + i + ")");
         //set the first return flight as the lowest fare if it is has a price available
         if (priceColumnToUse != -1) {
-            wannaGetAwaySelector = "table[id='faresOutbound'] > tbody > tr[id*='outbound_flightRow']:nth-child(" + i + ") > td:nth-child(" + priceColumnToUse + ") > div > div > div > div > div";
+            wannaGetAwaySelector = "table[id='faresReturn'] > tbody > tr[id*='inbound_flightRow']:nth-child(" + i + ") > td:nth-child(" + priceColumnToUse + ") > div > div > div > div > div";
             wannaGetAwayRadioButtonElement = driver.findElement(By.cssSelector(wannaGetAwaySelector + " > input"));
             priceStr = driver.findElement(By.cssSelector(wannaGetAwaySelector + " > label")).getText().trim().replace("$", "");
             price = Integer.parseInt(priceStr);

@@ -65,7 +65,7 @@ public class SouthwestHomePage extends WebPage{
      * Helper method to click on the "Flight" tab
      */
     public void clickFlightTab(){
-        clickElement(linkFlightTab, "flight tab");
+        clickElement(linkFlightTab, "flight tab link");
     }
 
     /**
